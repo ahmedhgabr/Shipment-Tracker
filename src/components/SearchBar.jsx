@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import searchIcon from "../assets/search.svg";
+import { useShipmentContext } from "../hooks/useShipmentContext";
 
 const Div = styled.div`
   position: relative;
@@ -47,6 +48,7 @@ const Label = styled.label`
 `;
 
 function SearchBar({}) {
+  const { shipment , dispatch } = useShipmentContext();
   const [trackingNumber, setTrackingNumber] = useState("");
   const [error, setError] = useState("");
 
@@ -79,6 +81,7 @@ function SearchBar({}) {
     } else {
       setError(null);
       console.log(data);
+      dispatch({ type: "SET_SHIPMENT", payload: data });
     }
   };
 
