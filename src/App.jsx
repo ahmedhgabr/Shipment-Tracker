@@ -2,6 +2,7 @@ import { useState } from "react";
 // import "./App.css";
 import { useTranslation } from "react-i18next";
 // components
+import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import ShipmentDetails from "./components/ShipmentDetails";
 import DeliveryTimeline from "./components/DeliveryTimeline";
@@ -22,7 +23,7 @@ function App() {
   return (
     <>
       <ShipmentContextProvider>
-        <SearchBar />
+        <Header headText="Welcome to Tracking System" onLanguageChange={toggleLanguage} />
         <ShipmentDetails />
         <DeliveryTimeline />
         <TransitEvents />
