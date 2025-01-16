@@ -59,7 +59,7 @@ const Circle = styled.div`
 
 const Label = styled.span`
   color: ${({ completed, isReturnedStep }) =>
-    isReturnedStep ? "red" : completed ? "#0098A5" : "white"};
+    isReturnedStep ? "red" : completed ? "black" : "gray"};
   font-weight: ${({ completed }) => (completed ? "bold" : "normal")};
 `;
 
