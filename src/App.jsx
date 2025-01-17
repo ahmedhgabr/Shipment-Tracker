@@ -1,5 +1,5 @@
-import { Suspense, useState } from "react";
-// import "./App.css";
+import { Suspense, useState, useEffect } from "react";
+import "./App.css";
 //localization
 import { useTranslation, Trans } from "react-i18next";
 // components
@@ -12,7 +12,11 @@ import TransitEvents from "./components/TransitEvents";
 import { ShipmentContextProvider } from "./context/ShipmentContext";
 
 function App() {
-  const { t } = useTranslation();
+  const { t , i18n} = useTranslation();
+
+  useEffect(() => {
+    document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
+  }, [i18n.language]);
 
   return (
     <>

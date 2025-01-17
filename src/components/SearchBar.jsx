@@ -8,9 +8,12 @@ import { useShipmentContext } from "../hooks/useShipmentContext";
 import { useTranslation, Trans } from "react-i18next";
 
 const Div = styled.div`
+  display: flex;
+  height: 4rem;
   position: relative;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const Button = styled.button`
@@ -22,7 +25,7 @@ const Button = styled.button`
   border-radius: var(--rad) 0 0 var(--rad);
   cursor: pointer;
   height: 100%;
-  padding: 0.5rem;
+  width: 3rem;
   img {
     width: 1.5rem;
   }
@@ -31,11 +34,11 @@ const Button = styled.button`
 const Input = styled.input`
   --rad: 0.5rem;
   border: none;
-  background: #f5f5f5;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 4px rgba(193, 193, 193, 0.25);
   width: 100%;
   border-radius: var(--rad);
   height: 100%;
-  padding: 0.5rem;
   padding-left: 3rem;
   &:focus {
     outline: none;

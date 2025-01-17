@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../assets/Bosta_ar.png";
-import headImage from "../assets/location.png";
+import headImage from "../assets/location1.png";
 import SearchBar from "./SearchBar";
 // localisation library
 import { useTranslation, Trans } from "react-i18next";
@@ -11,6 +11,7 @@ const lngs = {
 };
 
 const HeaderContainer = styled.header`
+  direction: ltr;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,59 +32,81 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const LanguageButton = styled.button`
-  padding: 8px 16px;
-  font-size: 1em;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #009688;
-  color: #fff;
-  &:hover {
-    background-color: #00796b;
-  }
-`;
-
 const CenterContent = styled.div`
   text-align: center;
   margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 `;
 
 const HeadImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 88px;
+  height: 127px;
 `;
 
 const HeadText = styled.h1`
-  margin-top: 10px;
-  font-size: 2em;
-  font-weight: bold;
+  font-family: "Cairo", serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  gap: 0px;
+  opacity: 0px;
 `;
 
-const Header = ({ headText, onLanguageChange }) => {
+const LanguageSelect = styled.select`
+  background: none;
+  border: none;
+  width: 80px;
+  font-weight: bold;
+  cursor: pointer;
+  appearance: none;
+  padding-left: 20px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgNEw4IDExTDE1IDQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K);
+  background-repeat: no-repeat;
+  background-position: left 5px center;
+  background-size: 10px 10px;
+`;
+
+const LanguageOption = styled.option`
+  font-weight: normal;
+`;
+
+const SearchBarContainer = styled.div`
+  position: absolute;
+  top: 100%; /* Adjust this value to move the search bar down */
+  width: 40%;
+`;
+
+const Header = ({ headText }) => {
   const { t, i18n } = useTranslation();
   return (
     <HeaderContainer>
       <TopRow>
-        {Object.keys(lngs).map((lng) => (
-          <button
-            key={lng}
-            style={{
-              fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
-            }}
-            type="submit"
-            onClick={() => i18n.changeLanguage(lng)}
-          >
-            {lngs[lng].nativeName}
-          </button>
-        ))}
+        <LanguageSelect
+          value={i18n.resolvedLanguage}
+          onChange={(e) => i18n.changeLanguage(e.target.value)}
+        >
+          {Object.keys(lngs).map((lng) => (
+            <LanguageOption key={lng} value={lng}>
+              {lngs[lng].nativeName}
+            </LanguageOption>
+          ))}
+        </LanguageSelect>
         <Logo src={logo} alt="Logo" />
       </TopRow>
       <CenterContent>
         <HeadImage src={headImage} alt="Header Image" />
         <HeadText>{headText}</HeadText>
-        <SearchBar />
+        <SearchBarContainer>
+          <SearchBar />
+        </SearchBarContainer>
       </CenterContent>
     </HeaderContainer>
   );
