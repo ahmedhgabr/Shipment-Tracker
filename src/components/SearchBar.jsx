@@ -39,7 +39,7 @@ const Input = styled.input`
   width: 100%;
   border-radius: var(--rad);
   height: 100%;
-  padding-left: 3rem;
+  padding-left: 4rem;
   &:focus {
     outline: none;
   }

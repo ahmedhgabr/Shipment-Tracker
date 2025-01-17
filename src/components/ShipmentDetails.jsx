@@ -9,7 +9,6 @@ const OrderNumber = styled.p`
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 12px;
-  line-height: 16px;
   text-transform: uppercase;
 `;
 
@@ -27,7 +26,6 @@ const StatusContainer = styled.div`
   font-weight: 600;
   font-style: normal;
   font-size: 24px;
-  line-height: 32px;
   font-optical-sizing: auto;
 `;
 
@@ -36,13 +34,11 @@ const TimeDiff = styled.p`
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
-  line-height: 20px;
 `;
 
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px;
   color: #667085;
 `;
 
