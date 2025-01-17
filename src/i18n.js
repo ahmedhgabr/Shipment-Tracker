@@ -34,6 +34,7 @@ i18n
           outForDelivery: "Out for Delivery",
           returned: "Returned",
           delivered: "Delivered",
+          Trackingdetails: "Tracking details",
           date: "{{date, DATE_HUGE}}",
           time: "{{value, TIME_HM}}",
         },
@@ -41,8 +42,8 @@ i18n
       ar: {
         translation: {
           headText: "تتبع طلبك",
-          emptyInput: "رجاء أدخل رقم تتبع",
-          error_message: "رقم تتبع غير صالح",
+          emptyInput: "رجاء أدخل رقم التتبع",
+          error_message: "رقم التتبع غير صالح",
           network_error: "يبدو أن هناك خطأ في الشبكة. يرجى المحاولة مرة أخرى",
           TrackingNumber: "رقم التتبع",
           Order: "طلب",
@@ -55,6 +56,7 @@ i18n
           outForDelivery: "خارج للتوصيل",
           returned: "تم الإرجاع",
           delivered: "تم التسليم",
+          Trackingdetails: "تفاصيل الشحنة",
           date: "{{date, DATE_HUGE_ar}}",
           time: "{{value, TIME_HM}}",
         },

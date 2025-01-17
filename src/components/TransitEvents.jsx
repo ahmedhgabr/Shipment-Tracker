@@ -5,15 +5,24 @@ import styled from "styled-components";
 import { useTranslation, Trans } from "react-i18next";
 
 const Container = styled.div`
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   padding: 20px;
+  font-family: "Cairo", serif;
 `;
 
 const DateSection = styled.div`
   margin-bottom: 20px;
+  width: 70%;
 `;
 
 const DateHeader = styled.div`
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -32,6 +41,7 @@ const DateHeader = styled.div`
 
 const Events = styled.div`
   padding-left: 20px;
+  padding-right: 20px;
   display: ${({ expanded }) => (expanded ? "block" : "none")};
 `;
 
@@ -41,26 +51,37 @@ const Event = styled.div`
   background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const Timestamp = styled.div`
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: #666;
 `;
 
 const Location = styled.div`
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: #666;
-  margin-top: 5px;
 `;
 
+const Title = styled.p`
+  font-size: 1.5em;
+  left: 0;
+  font-family: "Cairo", serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  color:#667085;
+  display: flex;
+`;
+
+
 function TransitEvents({}) {
-  
-    const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { shipment, dispatch } = useShipmentContext();
   if (!shipment) return null;
   if (!shipment.TransitEvents) return null;
-  
 
   const eventsByDate = {};
 
@@ -88,14 +109,17 @@ function TransitEvents({}) {
   return (
     <div>
       <Container>
+        <Title>{t('Trackingdetails')}</Title>
         {Object.entries(eventsByDate).map(([dateStr, events]) => (
           <DateSection key={dateStr}>
-            <DateHeader>{t('date', { date: new Date(dateStr) })}</DateHeader>
+            <DateHeader>{t("date", { date: new Date(dateStr) })}</DateHeader>
             <Events expanded={true}>
               {events.map((event, index) => (
                 <Event key={index}>
                   <div>{event.description}</div>
-                  <Timestamp>{t('time', { value: new Date(event.time) })}</Timestamp>
+                  <Timestamp>
+                    {t("time", { value: new Date(event.time) })}
+                  </Timestamp>
                   {event.msg && <Location>{event.msg}</Location>}
                 </Event>
               ))}

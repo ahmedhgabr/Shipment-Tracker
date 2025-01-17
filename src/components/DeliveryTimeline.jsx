@@ -46,7 +46,7 @@ const Circle = styled.div`
   border-radius: 50%;
   background-color: ${({ completed, isReturnedStep }) =>
     isReturnedStep ? "red" : completed ? "#0098A5" : "white"};
-  border: 2px solid ${({ completed }) => (completed ? "#0098A5" : "gray")};
+  border: 2px solid ${({ completed, isReturnedStep}) => isReturnedStep ? "red" : (completed ? "#0098A5" : "gray")};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,6 +60,7 @@ const Circle = styled.div`
 `;
 
 const Label = styled.span`
+  min-width: 100px;
   color: ${({ completed, isReturnedStep }) =>
     isReturnedStep ? "red" : completed ? "black" : "gray"};
   font-weight: ${({ completed }) => (completed ? "bold" : "normal")};
@@ -68,12 +69,20 @@ const Label = styled.span`
 const DateLabel = styled.span`
   font-size: 0.9em;
   color: #666;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  min-width: 100px;
+  /* make the date below the label */
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 function DeliveryTimeline() {
-  
   const { t } = useTranslation();
-  
+
   const { shipment } = useShipmentContext();
   if (!shipment) return null;
 
@@ -103,12 +112,12 @@ function DeliveryTimeline() {
 
   // Define the timeline steps
   const steps = [
-    { label: t("pickedUp")},
+    { label: t("pickedUp") },
     { label: t("processing") },
     { label: t("outForDelivery") },
     { label: isReturned ? t("returned") : t("delivered") },
   ];
-  // date format 
+  // date format
   // TODO: add localization for date
   const options = { weekday: "short", month: "short", day: "numeric" };
   var date = new Date(shipment.CurrentStatus.timestamp);
@@ -120,11 +129,16 @@ function DeliveryTimeline() {
         <Step key={step.label} completed={index <= currentStepIndex}>
           <Circle
             completed={index <= currentStepIndex}
-            isReturnedStep={step.label ===  t("returned")}
+            isReturnedStep={step.label === t("returned")}
           />
-          <Label completed={index <= currentStepIndex} isReturnedStep = {step.label ===  t("returned")}>{step.label}</Label>
+          <Label
+            completed={index <= currentStepIndex}
+            isReturnedStep={step.label === t("returned")}
+          >
+            {step.label}
+          </Label>
           {index === currentStepIndex && shipment.CurrentStatus.timestamp && (
-            <DateLabel>{t('date', { date: new Date(date) })}</DateLabel>
+            <DateLabel>{t("date", { date: new Date(date) })}</DateLabel>
           )}
         </Step>
       ))}
