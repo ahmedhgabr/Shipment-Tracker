@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logo from "../assets/Bosta_ar.png";
 import headImage from "../assets/location1.png";
 import SearchBar from "./SearchBar";
+import SearchBarMob from "./SearchBarMob";
 // localisation library
 import { useTranslation, Trans } from "react-i18next";
 const lngs = {
@@ -17,6 +18,11 @@ const HeaderContainer = styled.header`
   align-items: center;
   padding: 20px;
   background-color: #f3fafb;
+
+  @media (max-width: 768px) {
+    direction: rtl;
+    padding: 10px;
+  }
 `;
 
 const TopRow = styled.div`
@@ -28,7 +34,7 @@ const TopRow = styled.div`
 `;
 
 const Logo = styled.img`
-  height: 50px;
+  height: 30px;
   cursor: pointer;
 `;
 
@@ -82,6 +88,11 @@ const SearchBarContainer = styled.div`
   position: absolute;
   top: 100%; /* Adjust this value to move the search bar down */
   width: 40%;
+
+  @media (max-width: 768px) {
+    /* not rendering the search bar on mobile */
+    display: none;
+  }
 `;
 
 const Header = ({ headText }) => {
@@ -99,6 +110,7 @@ const Header = ({ headText }) => {
             </LanguageOption>
           ))}
         </LanguageSelect>
+        <SearchBarMob />
         <Logo src={logo} alt="Logo" />
       </TopRow>
       <CenterContent>
