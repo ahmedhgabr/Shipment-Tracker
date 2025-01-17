@@ -61,31 +61,38 @@ function SearchBar({}) {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    if (!trackingNumber) {
-      setError(t("emptyInput"));
-      toast.error(error);
+    if (trackingNumber.trim() === "") {
+      const errorMessage = t("emptyInput");
+      setError(errorMessage);
+      toast.error(errorMessage);
       return;
     }
     // fetch
     //TODO: Use axios instead of fetch
-    const response = await fetch(
-      `https://tracking.bosta.co/shipments/track/${trackingNumber}`,
-      {
-        method: "GET",
-        headers: {
-          "x-requested-by": "Bosta",
-        },
-      }
-    );
-    const data = await response.json();
+    try {
+      const response = await fetch(
+        `https://tracking.bosta.co/shipments/track/${trackingNumber.trim()}`,
+        {
+          method: "GET",
+          headers: {
+            "x-requested-by": "Bosta",
+          },
+        }
+      );
+      const data = await response.json();
 
-    if (!response.ok) {
-      setError(t("error_message"));
-      toast.error(error);
-    } else {
-      setError(null);
-      console.log(data);
-      dispatch({ type: "SET_SHIPMENT", payload: data });
+      if (!response.ok) {
+        const errorMessage = t("error_message");
+        setError(errorMessage);
+        toast.error(errorMessage);
+      } else {
+        setError(null);
+        dispatch({ type: "SET_SHIPMENT", payload: data });
+      }
+    } catch (error) {
+      const errorMessage = t("network_error");
+      setError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -99,7 +106,7 @@ function SearchBar({}) {
           <Label>{t("TrackingNumber")}</Label>
           <Input
             type="text"
-            onChange={(e) => setTrackingNumber(e.target.value.trim())}
+            onChange={(e) => setTrackingNumber(e.target.value)}
             value={trackingNumber}
           />
         </Div>

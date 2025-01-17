@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 // import "./App.css";
 //localization
 import { useTranslation, Trans } from "react-i18next";
@@ -16,12 +16,14 @@ function App() {
 
   return (
     <>
-      <ShipmentContextProvider>
-        <Header headText={t("headText")} />
-        <ShipmentDetails />
-        <DeliveryTimeline />
-        <TransitEvents />
-      </ShipmentContextProvider>
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <ShipmentContextProvider>
+          <Header headText={t("headText")} />
+          <ShipmentDetails />
+          <DeliveryTimeline />
+          <TransitEvents />
+        </ShipmentContextProvider>
+      </Suspense>
     </>
   );
 }
