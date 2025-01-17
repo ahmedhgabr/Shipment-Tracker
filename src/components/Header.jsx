@@ -66,6 +66,23 @@ const HeadText = styled.h1`
   opacity: 0px;
 `;
 
+const SubHeadText = styled.h2`
+  font-family: "Cairo", serif;
+  color: #111619;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  gap: 0px;
+  opacity: 0px;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
 const LanguageSelect = styled.select`
   background: none;
   border: none;
@@ -116,6 +133,7 @@ const Header = ({ headText }) => {
       <CenterContent>
         <HeadImage src={headImage} alt="Header Image" />
         <HeadText>{headText}</HeadText>
+        <SubHeadText>{t('subHead')}</SubHeadText>
         <SearchBarContainer>
           <SearchBar />
         </SearchBarContainer>

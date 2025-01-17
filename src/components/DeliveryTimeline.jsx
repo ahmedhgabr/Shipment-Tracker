@@ -6,10 +6,16 @@ import { useTranslation, Trans } from "react-i18next";
 
 const TimelineWrapper = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   font-family: Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `;
 
 const Step = styled.div`
@@ -26,7 +32,9 @@ const Step = styled.div`
     height: 4px;
     width: 100%;
     background-color: ${({ completed }) => (completed ? "#009688" : "#ddd")};
-    z-index: -1;
+    z-index: -10;
+    /*move the ine 100px to top */
+    transform: translateY(-50%);
   }
 
   &:first-child::after {
@@ -38,6 +46,18 @@ const Step = styled.div`
     left: 0;
     width: 50%;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    { /* make the date below the label */}
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+
+  }
 `;
 
 const Circle = styled.div`
@@ -46,7 +66,9 @@ const Circle = styled.div`
   border-radius: 50%;
   background-color: ${({ completed, isReturnedStep }) =>
     isReturnedStep ? "red" : completed ? "#0098A5" : "white"};
-  border: 2px solid ${({ completed, isReturnedStep}) => isReturnedStep ? "red" : (completed ? "#0098A5" : "gray")};
+  border: 2px solid
+    ${({ completed, isReturnedStep }) =>
+      isReturnedStep ? "red" : completed ? "#0098A5" : "gray"};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +86,9 @@ const Label = styled.span`
   color: ${({ completed, isReturnedStep }) =>
     isReturnedStep ? "red" : completed ? "black" : "gray"};
   font-weight: ${({ completed }) => (completed ? "bold" : "normal")};
+  
+  @media (max-width: 768px) {
+}
 `;
 
 const DateLabel = styled.span`
@@ -78,6 +103,10 @@ const DateLabel = styled.span`
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function DeliveryTimeline() {
@@ -118,7 +147,6 @@ function DeliveryTimeline() {
     { label: isReturned ? t("returned") : t("delivered") },
   ];
   // date format
-  // TODO: add localization for date
   const options = { weekday: "short", month: "short", day: "numeric" };
   var date = new Date(shipment.CurrentStatus.timestamp);
   date = date.toLocaleDateString("en-US", options);

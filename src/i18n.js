@@ -19,6 +19,7 @@ i18n
       en: {
         translation: {
           headText: "Track Your Order",
+          subHead: "All order updates will be available through this link",
           emptyInput: "Please enter a tracking number",
           error_message: "Invalid tracking number",
           network_error: "It seems there is a network error. Please try again",
@@ -42,6 +43,7 @@ i18n
       ar: {
         translation: {
           headText: "تتبع طلبك",
+          subHead: "جميع تحديثات الطلب متاحة من خلال هذا الرابط",
           emptyInput: "رجاء أدخل رقم التتبع",
           error_message: "رقم التتبع غير صالح",
           network_error: "يبدو أن هناك خطأ في الشبكة. يرجى المحاولة مرة أخرى",
