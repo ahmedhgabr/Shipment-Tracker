@@ -1,6 +1,9 @@
 import { useShipmentContext } from "../hooks/useShipmentContext";
 import styled from "styled-components";
 
+//localization
+import { useTranslation, Trans } from "react-i18next";
+
 const Container = styled.div`
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -52,6 +55,8 @@ const Location = styled.div`
 `;
 
 function TransitEvents({}) {
+  
+    const { t, i18n } = useTranslation();
   const { shipment, dispatch } = useShipmentContext();
   if (!shipment) return null;
   if (!shipment.TransitEvents) return null;
@@ -63,13 +68,14 @@ function TransitEvents({}) {
   shipment.TransitEvents.map((event) => {
     const options = { weekday: "short", month: "short", day: "numeric" };
     var date = new Date(event.timestamp);
-    date = date.toLocaleDateString("en-US", options);
+    date.setHours(0, 0, 0, 0);
+    // var dateStr = new Date(date).toLocaleDateString("en-US", options);
     if (!eventsByDate[date]) {
       eventsByDate[date] = [];
     }
     eventsByDate[date].push({
       description: event.state || "",
-      time: date || "",
+      time: event.timestamp || "",
       code: event.code || "",
       exceptionCode: event.exceptionCode || "",
       msg: event.msg || "",
@@ -82,14 +88,14 @@ function TransitEvents({}) {
   return (
     <div>
       <Container>
-        {Object.entries(eventsByDate).map(([date, events]) => (
-          <DateSection key={date}>
-            <DateHeader>{date}</DateHeader>
+        {Object.entries(eventsByDate).map(([dateStr, events]) => (
+          <DateSection key={dateStr}>
+            <DateHeader>{t('date', { date: new Date(dateStr) })}</DateHeader>
             <Events expanded={true}>
               {events.map((event, index) => (
                 <Event key={index}>
                   <div>{event.description}</div>
-                  <Timestamp>{event.time}</Timestamp>
+                  <Timestamp>{t('time', { value: new Date(event.time) })}</Timestamp>
                   {event.msg && <Location>{event.msg}</Location>}
                 </Event>
               ))}

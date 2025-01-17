@@ -1,15 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
-import logo from '../assets/Bosta.png';
-import headImage from '../assets/location.png';
-import SearchBar from './SearchBar';
+import React from "react";
+import styled from "styled-components";
+import logo from "../assets/Bosta_ar.png";
+import headImage from "../assets/location.png";
+import SearchBar from "./SearchBar";
+// localisation library
+import { useTranslation, Trans } from "react-i18next";
+const lngs = {
+  en: { nativeName: "English" },
+  ar: { nativeName: "عربي" },
+};
 
 const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #F3FAFB;
+  background-color: #f3fafb;
 `;
 
 const TopRow = styled.div`
@@ -55,12 +61,23 @@ const HeadText = styled.h1`
   font-weight: bold;
 `;
 
-
 const Header = ({ headText, onLanguageChange }) => {
+  const { t, i18n } = useTranslation();
   return (
     <HeaderContainer>
       <TopRow>
-        <LanguageButton onClick={onLanguageChange}>Change Language</LanguageButton>
+        {Object.keys(lngs).map((lng) => (
+          <button
+            key={lng}
+            style={{
+              fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
+            }}
+            type="submit"
+            onClick={() => i18n.changeLanguage(lng)}
+          >
+            {lngs[lng].nativeName}
+          </button>
+        ))}
         <Logo src={logo} alt="Logo" />
       </TopRow>
       <CenterContent>

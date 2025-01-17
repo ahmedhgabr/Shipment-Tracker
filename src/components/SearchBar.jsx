@@ -1,7 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import searchIcon from "../assets/search.svg";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useShipmentContext } from "../hooks/useShipmentContext";
+//localization
+import { useTranslation, Trans } from "react-i18next";
 
 const Div = styled.div`
   position: relative;
@@ -28,11 +32,11 @@ const Input = styled.input`
   --rad: 0.5rem;
   border: none;
   background: #f5f5f5;
-  width: 30%;
+  width: 100%;
   border-radius: var(--rad);
   height: 100%;
   padding: 0.5rem;
-  padding-left: 2rem;
+  padding-left: 3rem;
   &:focus {
     outline: none;
   }
@@ -48,17 +52,18 @@ const Label = styled.label`
 `;
 
 function SearchBar({}) {
-  const { shipment , dispatch } = useShipmentContext();
+  const { shipment, dispatch } = useShipmentContext();
   const [trackingNumber, setTrackingNumber] = useState("");
   const [error, setError] = useState("");
+
+  const { t } = useTranslation();
 
   const handleSearch = async (e) => {
     e.preventDefault();
 
     if (!trackingNumber) {
-      setError("Please enter a tracking number");
-      //TODO: throw a toast
-      console.log(error);
+      setError(t("emptyInput"));
+      toast.error(error);
       return;
     }
     // fetch
@@ -75,9 +80,8 @@ function SearchBar({}) {
     const data = await response.json();
 
     if (!response.ok) {
-      setError(data.error);
-      console.log(error);
-      // TODO: throw a toast
+      setError(t("error_message"));
+      toast.error(error);
     } else {
       setError(null);
       console.log(data);
@@ -86,19 +90,22 @@ function SearchBar({}) {
   };
 
   return (
-    <form className="search" onSubmit={handleSearch}>
-      <Div className="search-bar">
-        <Button>
-          <img src={searchIcon} alt="Search" />
-        </Button>
-        <Label>Tracking Number</Label>
-        <Input
-          type="text"
-          onChange={(e) => setTrackingNumber(e.target.value.trim())}
-          value={trackingNumber}
-        />
-      </Div>
-    </form>
+    <div>
+      <form className="search" onSubmit={handleSearch}>
+        <Div className="search-bar">
+          <Button>
+            <img src={searchIcon} alt="Search" />
+          </Button>
+          <Label>{t("TrackingNumber")}</Label>
+          <Input
+            type="text"
+            onChange={(e) => setTrackingNumber(e.target.value.trim())}
+            value={trackingNumber}
+          />
+        </Div>
+      </form>
+      <ToastContainer />
+    </div>
   );
 }
 

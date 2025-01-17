@@ -1,5 +1,7 @@
 import { useShipmentContext } from "../hooks/useShipmentContext";
 import styled from "styled-components";
+//localization
+import { useTranslation, Trans } from "react-i18next";
 
 const OrderNumber = styled.p`
   font-family: "Rubik", serif;
@@ -45,6 +47,8 @@ const Div = styled.div`
 `;
 
 function ShipmentDetails({}) {
+  const { t, i18n } = useTranslation();
+
   const { shipment, dispatch } = useShipmentContext();
   if (!shipment) return null;
 
@@ -58,35 +62,35 @@ function ShipmentDetails({}) {
   let statusMessage = "";
 
   const options = { weekday: "short", month: "short", day: "numeric" };
-  let dateToShow = timeStamp.toLocaleDateString("en-US", options);
+  //TODO: add localization for date
+  let dateToShow = timeStamp;
 
   switch (shipment.CurrentStatus.state) {
     case "Delivered":
-      statusMessage = `Delivered on `;
+      statusMessage = t("DeliveredStatus");
       break;
     case "Returned":
-      statusMessage = `Returned on `;
+      statusMessage = t(t("ReturnedStatus"));
       break;
     default:
-      dateToShow = PromisedDate.toLocaleDateString("en-US", options);
-      statusMessage = `Arriving by `;
+      dateToShow = PromisedDate;
+      statusMessage = t("ArrivingStatus");
       break;
   }
 
   return (
     <Div>
-      <OrderNumber>Order #{shipment.TrackingNumber}</OrderNumber>
+      <OrderNumber>
+        {t("Order")} #{shipment.TrackingNumber}
+      </OrderNumber>
       <StatusContainer>
         <StatusMessage>{statusMessage} </StatusMessage>
-        <DateP>{dateToShow}</DateP>
+        <DateP>{t('date', { date: new Date(dateToShow) })}</DateP>
       </StatusContainer>
       <TimeDiff>
         {shipment.CurrentStatus.state !== "Delivered" &&
           shipment.CurrentStatus.state !== "Returned" && (
-            <p>
-              Your order is expected to arrive within {timeDifference} working
-              days.
-            </p>
+            <p>{t("timeDiff", { timeDifference })}</p>
           )}
       </TimeDiff>
     </Div>

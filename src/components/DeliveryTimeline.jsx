@@ -1,6 +1,8 @@
 import React from "react";
 import { useShipmentContext } from "../hooks/useShipmentContext";
 import styled from "styled-components";
+//localization
+import { useTranslation, Trans } from "react-i18next";
 
 const TimelineWrapper = styled.div`
   display: flex;
@@ -69,6 +71,9 @@ const DateLabel = styled.span`
 `;
 
 function DeliveryTimeline() {
+  
+  const { t } = useTranslation();
+  
   const { shipment } = useShipmentContext();
   if (!shipment) return null;
 
@@ -98,12 +103,13 @@ function DeliveryTimeline() {
 
   // Define the timeline steps
   const steps = [
-    { label: "Picked Up" },
-    { label: "Processing" },
-    { label: "Out for Delivery" },
-    { label: isReturned ? "Returned" : "Delivered" },
+    { label: t("pickedUp")},
+    { label: t("processing") },
+    { label: t("outForDelivery") },
+    { label: isReturned ? t("returned") : t("delivered") },
   ];
-  // date format
+  // date format 
+  // TODO: add localization for date
   const options = { weekday: "short", month: "short", day: "numeric" };
   var date = new Date(shipment.CurrentStatus.timestamp);
   date = date.toLocaleDateString("en-US", options);
@@ -114,11 +120,11 @@ function DeliveryTimeline() {
         <Step key={step.label} completed={index <= currentStepIndex}>
           <Circle
             completed={index <= currentStepIndex}
-            isReturnedStep={step.label === "Returned"}
+            isReturnedStep={step.label ===  t("returned")}
           />
-          <Label completed={index <= currentStepIndex} isReturnedStep = {step.label === "Returned"}>{step.label}</Label>
+          <Label completed={index <= currentStepIndex} isReturnedStep = {step.label ===  t("returned")}>{step.label}</Label>
           {index === currentStepIndex && shipment.CurrentStatus.timestamp && (
-            <DateLabel>{date}</DateLabel>
+            <DateLabel>{t('date', { date: new Date(date) })}</DateLabel>
           )}
         </Step>
       ))}
