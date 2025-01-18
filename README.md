@@ -32,7 +32,7 @@ A single page React application for tracking shipments, allowing users to view s
 
 ### API Integration
 - Use the provided mock API to fetch shipment data based on the tracking number
-  - Tracking Numbers Sample: `36406704, 69171493, 7234258, 9442984, 1094442`
+  - Tracking Numbers Sample: `69171493`
 
 ### Styling and Responsiveness
 - Ensure the application is styled and responsive for various screen sizes.
