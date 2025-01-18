@@ -1,13 +1,14 @@
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import "./App.css";
 
 //localization
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+
 // components
 import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
 import MyCard from "./components/Card";
 import TransitEvents from "./components/TransitEvents";
+
 // context
 import { ShipmentContextProvider } from "./context/ShipmentContext";
 

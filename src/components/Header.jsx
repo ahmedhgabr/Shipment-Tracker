@@ -76,8 +76,6 @@ const SubHeadText = styled.h2`
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  gap: 0px;
-  opacity: 0px;
   @media (min-width: 768px) {
     display: none;
   }

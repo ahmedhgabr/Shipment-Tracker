@@ -13,26 +13,26 @@ const MobileContainer = styled.div`
   high: 60%;
 `;
 
-const IconMobile = styled.img`
+const IconBase = styled.img`
   cursor: pointer;
   width: 24px;
   height: 24px;
+`;
+
+const IconMobile = styled(IconBase)`
   transform: translateY(100%);
 `;
 
-const IconMobileI = styled.img`
-  cursor: pointer;
+const IconMobileI = styled(IconBase)`
   /* invert color */
   filter: invert(1);
-  width: 24px;
-  height: 24px;
 `;
 
 const Div = styled.div`
   display: flex;
   justify-content: right;
-  width: 50%;
-  high: 60%;
+  width: 70%;
+  hight: 60%;
   @media (min-width: 768px) {
     display: none;
   }
@@ -49,7 +49,6 @@ function SearchBarMob({}) {
     <Div>
       {isSearchVisible ? (
         <MobileContainer>
-            
           <IconMobile src={closeIcon} alt="close Icon" onClick={toggleSearch} />
           <SearchBar />
         </MobileContainer>

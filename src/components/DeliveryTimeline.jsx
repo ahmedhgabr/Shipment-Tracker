@@ -1,6 +1,6 @@
 import React from "react";
-import { useShipmentContext } from "../hooks/useShipmentContext";
 import styled from "styled-components";
+import { useShipmentContext } from "../hooks/useShipmentContext";
 //localization
 import { useTranslation, Trans } from "react-i18next";
 
@@ -116,7 +116,6 @@ function DeliveryTimeline() {
   if (!shipment) return null;
 
   var currentStepIndex = 0;
-  var isCompleted = true;
   var isReturned = false;
 
   switch (shipment.CurrentStatus.state) {

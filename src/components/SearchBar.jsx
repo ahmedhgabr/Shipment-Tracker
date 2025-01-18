@@ -34,7 +34,7 @@ const Button = styled.button`
 const Input = styled.input`
   --rad: 0.5rem;
   border: none;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 4px 4px 4px rgba(193, 193, 193, 0.25);
   width: 100%;
   border-radius: var(--rad);
