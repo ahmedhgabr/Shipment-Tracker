@@ -11,13 +11,10 @@ A single page React application for tracking shipments, allowing users to view s
 ## Features
 
 ### Shipment Search
-- Implement a search bar where users can input a Shipment Tracking Number to retrieve shipment details.
+- A search bar where users can input a Shipment Tracking Number to retrieve shipment details.
 
 ### Shipment Details
-- Display the following shipment information after searching:
-  - Tracking Number
-  - Current Status
-  - Expected Delivery Date 
+- Display shipment information after searching
 
 ### Delivery Timeline
 - Display a progress timeline for the shipment stages.
@@ -32,8 +29,8 @@ A single page React application for tracking shipments, allowing users to view s
 
 ### API Integration
 - Use the provided mock API to fetch shipment data based on the tracking number
-  - Tracking Numbers Sample: `69171493`
+- Tracking Number Samples: `36406704`, `69171493`, `7234258`, `9442984`, `1094442`.
 
 ### Styling and Responsiveness
-- Ensure the application is styled and responsive for various screen sizes.
+- The application is styled and responsive for various screen sizes.
 
