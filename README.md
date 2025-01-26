@@ -7,6 +7,7 @@ A single page React application for tracking shipments, allowing users to view s
 2. Run `npm install` to install dependencies
 3. Run `npm run dev` to start the application
 4. Open `http://localhost:5173` in your browser
+5. Tracking Number Samples: `36406704`, `69171493`, `7234258`, `9442984`, `1094442`.
 
 ## Features
 
